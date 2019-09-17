@@ -1,27 +1,35 @@
-import babel from "rollup-plugin-babel"
-import resolve from "rollup-plugin-node-resolve"
-import commonjs from "rollup-plugin-commonjs"
-import pkg from "./package.json"
+import babel from 'rollup-plugin-babel'
+import commonjs from 'rollup-plugin-commonjs'
+import resolve from 'rollup-plugin-node-resolve'
+import scss from 'rollup-plugin-scss'
+import pkg from './package.json'
+
+const plugins = [
+  babel(),
+  commonjs(),
+  resolve(),
+  scss(),
+]
 
 export default [
   // For browser
   {
-    input: "src/index.js",
+    input: 'src/index.js',
     output: {
-      name: "community",
+      name: 'community',
       file: pkg.browser,
-      format: "umd"
+      format: 'umd'
     },
-    plugins: [babel(), resolve(), commonjs()]
+    plugins,
   },
   // For modern frontend and Node
   {
-    input: "src/index.js",
+    input: 'src/index.js',
     output: [
-      { file: pkg.main, format: "cjs" },
-      { file: pkg.module, format: "es" }
+      { file: pkg.main, format: 'cjs' },
+      { file: pkg.module, format: 'es' }
     ],
-    plugins: [babel(), resolve(), commonjs()],
+    plugins,
     external: [/* external deps array */]
   }
 ]

@@ -1,3 +1,3 @@
-const x = () => `loaded community-js at ${Date.now()}`
+import './main.scss'
 
-console.log(x())
+console.log('styles external')
