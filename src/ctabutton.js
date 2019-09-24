@@ -1,5 +1,3 @@
-import $ from 'jquery'
-
 import { openMailchimpPopup } from './mailchimp'
 
 import './community-cta.scss'
@@ -33,24 +31,37 @@ const ctaHtml = `
 </div>
 `
 
+const $all = query => document.body.querySelectorAll(query)
+const $el = query => document.body.querySelector(query)
+
+const onClick = (el, handler) => el.addEventListener('click', handler)
+const toggleClass = (el, className) => el.classList.toggle(className)
+
 export function createCtaButton() {
   document.body.insertAdjacentHTML('beforeend', ctaHtml)
 
-  $('.community-cta-wrapper .cta-button').on('click', function(e) {
-  	e.stopPropagation()
-  	e.preventDefault()
-  	$(this).closest('.community-cta-wrapper').toggleClass('open')
-  })
+  onClick(
+    $el('.community-cta-wrapper .cta-button'),
+    e => {
+    	e.stopPropagation()
+    	e.preventDefault()
+    	toggleClass($el('body .community-cta-wrapper'), 'open')
+    })
 
-  $('.community-cta-wrapper .community-link').on('click', function(e) {
-  	$(this).closest('.community-cta-wrapper').toggleClass('open')
-  })
+  $all('.community-cta-wrapper .community-link').forEach(
+    el => onClick(
+      el,
+      () => toggleClass($el('body .community-cta-wrapper'), 'open'),
+    )
+  )
 
-  $('.community-cta-wrapper .community-link.mailchimp').on('click', function(e) {
-    openMailchimpPopup()
-  })
+  onClick(
+    $el('.community-cta-wrapper .community-link.mailchimp'),
+    openMailchimpPopup,
+  )
 
-  $(document).click(function() {
-  	$('.community-cta-wrapper').removeClass('open')
-  })
+  onClick(
+    document,
+    () => $el('body .community-cta-wrapper').classList.remove('open'),
+  )
 }
