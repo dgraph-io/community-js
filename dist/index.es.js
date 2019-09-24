@@ -150,3 +150,7 @@ Dgraph.openMailchimpPopup = openMailchimpPopup;
 Dgraph.createCtaButton = createCtaButton;
 console.info('Dgraph Community JS Loaded');
 window.setTimeout(openMailchimpPopup, 20 * 1000);
+
+if (!Dgraph.disableAutoInit) {
+  Dgraph.init();
+}
