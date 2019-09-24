@@ -1,36 +1,52 @@
 .community-cta-wrapper {
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
   font-size: 13px;
+
   position: fixed;
   bottom: -138px;
   right: 3%;
   transition: bottom 300ms ease-in;
   z-index: 10;
-  box-shadow: 0 1px 10px 0 #888; }
-  .community-cta-wrapper:hover {
-    box-shadow: 0 1px 10px 0 #777; }
-  .community-cta-wrapper.open {
-    bottom: 0; }
-  .community-cta-wrapper ul {
+
+  box-shadow: 0 1px 10px 0 #888;
+
+  &:hover {
+    box-shadow: 0 1px 10px 0 #777;
+  }
+
+  &.open {
+    bottom: 0;
+  }
+
+  ul {
     list-style: none;
     padding-left: 0;
-    margin: 0; }
-    .community-cta-wrapper ul li {
-      margin-bottom: 0; }
-      .community-cta-wrapper ul li a {
+    margin: 0;
+
+    li {
+      margin-bottom: 0;
+
+      a {
         display: block;
         padding: 7px 12px;
         text-decoration: unset;
         color: black;
         background: #f7f7f7;
         font-size: 12px;
-        line-height: 20px; }
-        .community-cta-wrapper ul li a:hover {
+        line-height: 20px;
+
+        &:hover {
           background: #dbf2ff;
-          text-decoration: none; }
-        .community-cta-wrapper ul li a > i {
+          text-decoration: none;
+        }
+        > i {
           font-size: 14px;
-          margin-right: 5px; }
+          margin-right: 5px;
+        }
+      }
+    }
+  }
+}
 
 .cta-button {
   padding: 10px 22px;
@@ -40,8 +56,11 @@
   text-decoration: none;
   display: inline-block;
   border-top-left-radius: 2px;
-  border-top-right-radius: 2px; }
-  .cta-button:hover, .cta-button:focus {
+  border-top-right-radius: 2px;
+
+  &:hover, &:focus {
     text-decoration: none;
     color: white;
-    background: #10a8ff; }
+    background: #10a8ff;
+  }
+}
