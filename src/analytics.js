@@ -18,17 +18,17 @@ import { injectScript } from './util'
       gtag('config', 'UA-75364122-2');
     </script>
 */
-function loadGoogleAnalytics(property) {
+function loadGoogleAnalytics() {
   const propertyMap = {
-    'blog': 'UA-75364122-5',
+    'blog.dgraph.io': 'UA-75364122-5',
     'dgraph.io': 'UA-75364122-1',
-    'docs': 'UA-75364122-3',
-    'tour': 'UA-75364122-2',
+    'docs.dgraph.io': 'UA-75364122-3',
+    'tour.dgraph.io': 'UA-75364122-2',
   }
 
-  const gaId = propertyMap[property]
+  const gaId = propertyMap[window.location.hostname]
   if (!gaId) {
-    console.log('No known GA for ', property)
+    console.log('No known GA for hostname', window.location.hostname)
     return;
   }
 
@@ -43,7 +43,5 @@ function loadGoogleAnalytics(property) {
 }
 
 export function startAnalytics() {
-  if (window.location.hostname === 'tour.dgraph.io') {
-    loadGoogleAnalytics('tour')
-  }
+  loadGoogleAnalytics()
 }
