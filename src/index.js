@@ -3,8 +3,6 @@ import { initMailchimp, openMailchimpPopup } from './mailchimp'
 import { createCtaButton } from './ctabutton'
 import { injectCssLink } from './util'
 
-import './main.scss'
-
 const Dgraph = window.DgraphJS = window.DgraphJS || {}
 
 Dgraph.init = () => {
