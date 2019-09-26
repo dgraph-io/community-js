@@ -9,3 +9,12 @@ export function injectScript(url, attrs) {
   document.body.appendChild(script)
   return script
 }
+
+export function injectCssLink(url) {
+  const link  = document.createElement('link')
+  link.rel  = 'stylesheet'
+  link.type = 'text/css'
+  link.href = url
+  document.body.appendChild(link)
+  return link
+}

@@ -1,12 +1,14 @@
 import { startAnalytics } from './analytics'
 import { initMailchimp, openMailchimpPopup } from './mailchimp'
 import { createCtaButton } from './ctabutton'
+import { injectCssLink } from './util'
 
 import './main.scss'
 
 const Dgraph = window.DgraphJS = window.DgraphJS || {}
 
 Dgraph.init = () => {
+  injectCssLink('//unpkg.com/@dgraph-io/community/dist/index.iife.css')
   initMailchimp()
   createCtaButton()
   startAnalytics()

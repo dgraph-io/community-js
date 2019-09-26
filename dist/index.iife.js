@@ -60,6 +60,14 @@
     document.body.appendChild(script);
     return script;
   }
+  function injectCssLink(url) {
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = url;
+    document.body.appendChild(link);
+    return link;
+  }
 
   /*
     Analytics scripts for Dgraph sites
@@ -252,6 +260,7 @@
   var Dgraph = window.DgraphJS = window.DgraphJS || {};
 
   Dgraph.init = function () {
+    injectCssLink('//unpkg.com/@dgraph-io/community/dist/index.iife.css');
     initMailchimp();
     createCtaButton();
     startAnalytics();
