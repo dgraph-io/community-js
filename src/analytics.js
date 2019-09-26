@@ -26,7 +26,7 @@ function loadGoogleAnalytics(property) {
     'tour': 'UA-75364122-2',
   }
 
-  const gaId = propyMap[property]
+  const gaId = propertyMap[property]
   if (!gaId) {
     console.log('No known GA for ', property)
     return;

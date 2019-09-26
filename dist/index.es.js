@@ -76,7 +76,13 @@ function injectScript(url, attrs) {
 */
 
 function loadGoogleAnalytics(property) {
-  var gaId = propyMap[property];
+  var propertyMap = {
+    'blog': 'UA-75364122-5',
+    'dgraph.io': 'UA-75364122-1',
+    'docs': 'UA-75364122-3',
+    'tour': 'UA-75364122-2'
+  };
+  var gaId = propertyMap[property];
 
   if (!gaId) {
     console.log('No known GA for ', property);
