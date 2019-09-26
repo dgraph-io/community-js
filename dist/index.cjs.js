@@ -1,5 +1,108 @@
 'use strict';
 
+function _slicedToArray(arr, i) {
+  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();
+}
+
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr)) return arr;
+}
+
+function _iterableToArrayLimit(arr, i) {
+  if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) {
+    return;
+  }
+
+  var _arr = [];
+  var _n = true;
+  var _d = false;
+  var _e = undefined;
+
+  try {
+    for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+      _arr.push(_s.value);
+
+      if (i && _arr.length === i) break;
+    }
+  } catch (err) {
+    _d = true;
+    _e = err;
+  } finally {
+    try {
+      if (!_n && _i["return"] != null) _i["return"]();
+    } finally {
+      if (_d) throw _e;
+    }
+  }
+
+  return _arr;
+}
+
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance");
+}
+
+function injectScript(url, attrs) {
+  var script = document.createElement('script');
+  script.setAttribute('src', url); // Type will get overwritten in the forEach loop below if it's passed in attrs
+
+  script.setAttribute('type', 'text/javascript');
+  Object.entries(attrs).forEach(function (_ref) {
+    var _ref2 = _slicedToArray(_ref, 2),
+        k = _ref2[0],
+        v = _ref2[1];
+
+    return script.setAttribute(k, v);
+  });
+  document.body.appendChild(script);
+  return script;
+}
+
+/*
+  Analytics scripts for Dgraph sites
+*/
+
+/*
+  tour GA code copied from
+  https://analytics.google.com/analytics/web/#/a75364122w145443106p150171855/admin/tracking/tracking-code/
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-75364122-2"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-75364122-2');
+    </script>
+*/
+
+function loadGoogleAnalytics(property) {
+  var gaId = propyMap[property];
+
+  if (!gaId) {
+    console.log('No known GA for ', property);
+    return;
+  }
+
+  var script = injectScript("https://www.googletagmanager.com/gtag/js?id=".concat(gaId)).onload = function () {
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', gaId);
+  };
+}
+
+function startAnalytics() {
+  if (window.location.hostname === 'tour.dgraph.io') {
+    loadGoogleAnalytics('tour');
+  }
+}
+
 function getCookie(cname) {
   var name = cname + "=";
   var decodedCookie = decodeURIComponent(document.cookie);
@@ -82,13 +185,9 @@ function doMailchimpStartCall() {
 }
 
 function initMailchimp() {
-  var script = document.createElement('script');
-  script.setAttribute('type', 'text/javascript');
-  script.setAttribute('src', '//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js');
-  script.setAttribute('data-dojo-config', 'usePlainJson: true, isDebug: false');
-  document.body.appendChild(script);
-
-  script.onload = function () {
+  injectScript('//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js', {
+    'data-dojo-config': 'usePlainJson: true, isDebug: false'
+  }).onload = function () {
     doMailchimpRequire();
     startCookiePush();
   };
@@ -146,6 +245,7 @@ var Dgraph = window.DgraphJS = window.DgraphJS || {};
 Dgraph.init = function () {
   initMailchimp();
   createCtaButton();
+  startAnalytics();
 };
 
 Dgraph.openMailchimpPopup = openMailchimpPopup;
