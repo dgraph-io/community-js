@@ -201,9 +201,11 @@ function initMailchimp() {
   }).onload = function () {
     doMailchimpRequire();
     startCookiePush();
+    window.setTimeout(openMailchimpPopup, 20 * 1000);
   };
 }
 function openMailchimpPopup() {
+  var forceOpen = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
   // Terminate currently open mailchimp modal
   var elements = document.getElementsByClassName('mc-modal');
 
@@ -211,7 +213,10 @@ function openMailchimpPopup() {
     elements[0].parentNode.parentNode.removeChild(elements[0].parentNode);
   }
 
-  setCookie('MCPopupClosed', '', -10);
+  if (forceOpen) {
+    setCookie('MCPopupClosed', '', -10);
+  }
+
   doMailchimpStartCall();
 }
 
@@ -245,7 +250,11 @@ function createCtaButton() {
       return toggleClass($el('body .community-cta-wrapper'), 'open');
     });
   });
-  onClick($el('.community-cta-wrapper .community-link.mailchimp'), openMailchimpPopup);
+  onClick($el('.community-cta-wrapper .community-link.mailchimp'), function () {
+    return openMailchimpPopup(
+    /* forceOpen = */
+    true);
+  });
   onClick(document, function () {
     return $el('body .community-cta-wrapper').classList.remove('open');
   });
@@ -253,8 +262,14 @@ function createCtaButton() {
 
 var Dgraph = window.DgraphJS = window.DgraphJS || {};
 
+function calcCssUrl() {
+  var src = document.currentScript && document.currentScript.src;
+  src = src || '//unpkg.com/@dgraph-io/community';
+  return "".concat(src, "/dist/index.iife.css");
+}
+
 Dgraph.init = function () {
-  injectCssLink('//unpkg.com/@dgraph-io/community/dist/index.iife.css');
+  injectCssLink(calcCssUrl());
   initMailchimp();
   createCtaButton();
   startAnalytics();
@@ -263,7 +278,6 @@ Dgraph.init = function () {
 Dgraph.openMailchimpPopup = openMailchimpPopup;
 Dgraph.createCtaButton = createCtaButton;
 console.info('Dgraph Community JS Loaded');
-window.setTimeout(openMailchimpPopup, 20 * 1000);
 
 if (!Dgraph.disableAutoInit) {
   Dgraph.init();

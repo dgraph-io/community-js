@@ -57,7 +57,7 @@ export function createCtaButton() {
 
   onClick(
     $el('.community-cta-wrapper .community-link.mailchimp'),
-    openMailchimpPopup,
+    () => openMailchimpPopup(/* forceOpen = */ true),
   )
 
   onClick(

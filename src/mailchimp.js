@@ -81,16 +81,20 @@ export function initMailchimp() {
 	).onload = function () {
     doMailchimpRequire()
     startCookiePush()
+
+		window.setTimeout(openMailchimpPopup, 20 * 1000)
   }
 }
 
-export function openMailchimpPopup() {
+export function openMailchimpPopup(forceOpen = false) {
   // Terminate currently open mailchimp modal
   var elements = document.getElementsByClassName('mc-modal')
 	while(elements.length > 0) {
 		elements[0].parentNode.parentNode.removeChild(elements[0].parentNode)
 	}
 
-	setCookie('MCPopupClosed', '', -10)
+	if (forceOpen) {
+		setCookie('MCPopupClosed', '', -10)
+	}
   doMailchimpStartCall()
 }
