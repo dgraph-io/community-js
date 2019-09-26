@@ -1,5 +1,5 @@
+import { startAnalytics } from './analytics'
 import { initMailchimp, openMailchimpPopup } from './mailchimp'
-
 import { createCtaButton } from './ctabutton'
 
 import './main.scss'
@@ -9,6 +9,7 @@ const Dgraph = window.DgraphJS = window.DgraphJS || {}
 Dgraph.init = () => {
   initMailchimp()
   createCtaButton()
+  startAnalytics()
 }
 
 Dgraph.openMailchimpPopup = openMailchimpPopup

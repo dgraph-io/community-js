@@ -1,3 +1,5 @@
+import { injectScript } from './util'
+
 function getCookie(cname) {
 	var name = cname + "=";
 	var decodedCookie = decodeURIComponent(document.cookie);
@@ -73,14 +75,10 @@ function doMailchimpStartCall() {
 }
 
 export function initMailchimp() {
-  const script = document.createElement('script')
-  script.setAttribute('type', 'text/javascript')
-  script.setAttribute('src', '//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js')
-  script.setAttribute('data-dojo-config', 'usePlainJson: true, isDebug: false')
-
-  document.body.appendChild(script)
-
-  script.onload = function () {
+	injectScript(
+		'//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js',
+		{ 'data-dojo-config': 'usePlainJson: true, isDebug: false' },
+	).onload = function () {
     doMailchimpRequire()
     startCookiePush()
   }
