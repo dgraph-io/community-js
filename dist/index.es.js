@@ -40,7 +40,8 @@ function _nonIterableRest() {
   throw new TypeError("Invalid attempt to destructure non-iterable instance");
 }
 
-function injectScript(url, attrs) {
+function injectScript(url) {
+  var attrs = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
   var script = document.createElement('script');
   script.setAttribute('src', url); // Type will get overwritten in the forEach loop below if it's passed in attrs
 
