@@ -5,8 +5,14 @@ import { injectCssLink } from './util'
 
 const Dgraph = window.DgraphJS = window.DgraphJS || {}
 
+function calcCssUrl() {
+  let src = document.currentScript && document.currentScript.src
+  src = src || '//unpkg.com/@dgraph-io/community'
+  return `${src}/dist/index.iife.css`
+}
+
 Dgraph.init = () => {
-  injectCssLink('//unpkg.com/@dgraph-io/community/dist/index.iife.css')
+  injectCssLink(calcCssUrl())
   initMailchimp()
   createCtaButton()
   startAnalytics()
