@@ -94,6 +94,7 @@
       'blog.dgraph.io': 'UA-75364122-5',
       'dgraph.io': 'UA-75364122-1',
       'docs.dgraph.io': 'UA-75364122-3',
+      'graphql.dgraph.io': 'UA-75364122-7',
       'tour.dgraph.io': 'UA-75364122-2'
     };
     var gaId = propertyMap[window.location.hostname];
