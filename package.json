@@ -1,6 +1,6 @@
 {
   "name": "@dgraph-io/community",
-  "version": "0.4.7",
+  "version": "0.4.8",
   "description": "Shared community engagement widget for dgraph.io sites",
   "keywords": [
     "community",
